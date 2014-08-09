@@ -13,8 +13,7 @@ import java.util.Scanner;
 public class Main {
 
     /**
-     * @param args the command line arguments
-     * EJEMPLO
+     * @param args the command line argumento
      */
     public static void main(String[] args) {
 
