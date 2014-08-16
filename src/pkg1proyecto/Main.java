@@ -20,7 +20,9 @@ public class Main {
         System.out.println("ingrese lo que desea realizar:"
                 + "para pagos- 1"
                 + "para libros- 2"
-                + "para membresia- 3");
+                + "para membresia- 3"
+                +"para video presiona -4"
+                +"para actualizar presiona-5");
         Scanner leer = new Scanner(System.in);
         ejecutarOpcion(leer.nextInt());
     }
