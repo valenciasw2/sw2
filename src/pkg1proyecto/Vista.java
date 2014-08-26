@@ -26,7 +26,7 @@ public class Vista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pagar = new javax.swing.JButton();
+        Pagar = new javax.swing.JButton();
         TipoPago = new javax.swing.JComboBox();
         Producto = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -38,16 +38,17 @@ public class Vista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pagar.setText("pagar");
-        pagar.addActionListener(new java.awt.event.ActionListener() {
+        Pagar.setText("pagar");
+        Pagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagarActionPerformed(evt);
+                PagarActionPerformed(evt);
             }
         });
 
-        TipoPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "fisico", " " }));
+        TipoPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "fisico", "Libro" }));
+        TipoPago.setToolTipText("");
 
-        Producto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "libro", "video", "membresia" }));
+        Producto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "libro", "video", "membresia", "Actualizar Membresía" }));
 
         jLabel1.setText("TIPO DE PAGO");
 
@@ -72,7 +73,7 @@ public class Vista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TipoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -84,7 +85,7 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pagar)
+                    .addComponent(Pagar)
                     .addComponent(email)
                     .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -109,22 +110,49 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(pagar)
+                .addComponent(Pagar)
                 .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
-
-    private void pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarActionPerformed
+    pago pa;
+    private void PagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagarActionPerformed
         
-        int tipo=TipoPago.getSelectedIndex();
-        int producto=Producto.getSelectedIndex();
-    }//GEN-LAST:event_pagarActionPerformed
+        int tipo = TipoPago.getSelectedIndex();
+        int producto = Producto.getSelectedIndex();
+        String correo = email.getText();
+        String cedula = id.getText();
+        pa = new pago(correo, cedula);
+        switch(tipo){
+            case 0: pa.generar_orden_compra();
+                    Agente agente = new Agente();
+                    agente.generarComision();
+                break;
+            case 1: pa.orden_de_entrega_libros();
+                break;
+            default: String error = "error";
+                break;
+        }
+        
+        switch(producto){
+            case 0: pa.orden_de_entrega_libros();
+                break;
+            case 1: pa.video_compra();
+                break;
+            case 2: pa.activacion();
+                break;
+            case 3: pa.actualizar();
+                break;    
+            default: String error = "error";
+                break;
+        }
+        
+    }//GEN-LAST:event_PagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,6 +189,7 @@ public class Vista extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Pagar;
     private javax.swing.JComboBox Producto;
     private javax.swing.JComboBox TipoPago;
     private javax.swing.JTextField email;
@@ -169,6 +198,5 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JButton pagar;
     // End of variables declaration//GEN-END:variables
 }
